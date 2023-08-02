@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-<stage>
+  name: backend-app
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: <stage>
+    namespace: app-of-apps
     server: 'https://kubernetes.default.svc'
   source:
-    path: 'deployment'
+    path: 'backend'
     repoURL: 'https://github.com/FlyingDogFood/gitops-example.git'
-    targetRevision: <stage>
+    targetRevision: app-of-apps
   project: default
   syncPolicy:
     automated:

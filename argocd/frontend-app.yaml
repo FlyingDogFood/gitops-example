@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend-app
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: app-of-apps
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: 'frontend'
+    repoURL: 'https://github.com/FlyingDogFood/gitops-example.git'
+    targetRevision: app-of-apps
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
